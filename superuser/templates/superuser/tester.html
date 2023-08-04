@@ -1,0 +1,28 @@
+{% extends 'superuser/base.html' %}
+{% block content %}
+
+
+    <div class="jumbotron">
+      <div class="container">
+        <div class="col-md-6">
+          <label>Single Select2</label>
+          <select id="single" class="js-states form-control">
+            <option>Java</option>
+            <option>Javascript</option>
+            <option>PHP</option>
+            <option>Visual Basic</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Multiple Select2</label>
+          <select id="multiple" class="js-states form-control" multiple>
+            <option>Java</option>
+            <option>Javascript</option>
+            <option>PHP</option>
+            <option>Visual Basic</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'superuser/base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+<div class="mt-4" style="display:flex; flex-direction:row;">
+    <p>Total Outstanding Commission: GHS {{ total_commission }}0</p>
+    <a href="{% url 'superuser:ajax_load_commission' %}"  id="total_commission" data-info="double" class="pay_commission ml-3"><button class="btn btn-success btn-sm">Pay Now</button></a>
+  </div>
+            <br/>
+            <br/>
+              
+
+<!-- Tab content -->
+  <div class="table-responsive-md">
+    {% csrf_token %}
+  
+  <table class="table table-striped table-hover" id="module_fees">
+      <thead>
+          <tr>
+              <th>Agent name</th>
+              <th>Client name</th>
+              <th>Commission</th>
+              <th>Amount earned(GHS)</th>
+              <th>Last Updated</th>
+              <th>Status</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+  
+          {% for module in payments %}
+  
+          <tr id="{{ module.id }}">
+             
+              <td>{{ module.agent_name }}</td>
+              <td>{{ module.client_name }}</td>
+              <td>{{ module.commission }}</td>
+              <td>{{ module.amount }}</td>
+              <td>{{ module.date_created }}</td>
+              <td>{{ module.status }}</td>
+
+              <td>
+                {% if module.paid %}
+                    <a href="javascript:void(0)"  ><button class="btn btn-secondary btn-sm" disabled>Paid</button></a>
+                {% else %}
+                    <a href="{% url 'superuser:ajax_load_commission' %}"  id="{{ module.id }}" data-info="single" class="pay_commission"><button class="btn btn-success btn-sm">Pay Now</button></a>
+                {% endif %}
+              </td>
+
+          </tr>
+         
+          {% endfor %}
+      </tbody>
+  </table>
+  
+  </div>
+  
+{% endblock %}

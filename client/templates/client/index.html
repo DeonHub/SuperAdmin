@@ -1,0 +1,69 @@
+{% extends 'client/base.html' %}
+
+{% block content %}
+
+<br/>
+  
+    
+<div id="root">
+    <div class="container pt-5">
+      <div class="row align-items-stretch">
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+
+            <div class="">
+            <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Clients</h4>
+            </div>
+            <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count text-center" style="color: blue;">{{ total_clients }}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+            <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Male/Female</h4>
+            </div>
+            <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ total_clients_male }}/{{ total_clients_female }} </span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+            <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Commission Earned</h4>
+            </div>
+            <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">GHS {{ total_commission_earned }}0</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+                <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Commission Paid</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">GHS {% if total_commission_paid == 0 %} 0.00 {% else %}  {{ total_commission_paid }} {% endif %} </span>
+              </div>
+            </div>
+          </div>
+
+
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

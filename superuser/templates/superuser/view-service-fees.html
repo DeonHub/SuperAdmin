@@ -1,0 +1,53 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:createServiceFees' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Service Fee</p></button></a>
+<br/>
+<br/>
+<hr/>
+
+<div class="mb-4">
+    <div>
+        Total Unpaid Service Fees: <b>GHS {{ total_outstanding }}0</b>
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+    {% csrf_token %}
+
+<table class="table table-striped table-hover" id="service_details">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Service Fee</th>
+            <th>Fee Limit</th>
+            <th>Outstanding Fee</th>
+            <th>Last Updated</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for module in service_fees %}
+
+        <tr id="{{ module.id }}">
+           
+            <td>{{ module.client }}</td>
+            <td>{{ module.service_fee }}%</td>
+            <td>GHS {{ module.limit }}</td>
+            <td>GHS {{ module.outstanding_fee }}</td>
+            <td>{{ module.date_created }}</td>
+            <td><a href="{% url 'superuser:editServiceFees' id=module.id %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
+            <td><a href="{% url 'superuser:deleteServiceFees' id=module.id %}" class="service-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'superuser/base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+<a href="{% url 'superuser:setModuleFees' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Module Fee</p></button></a>
+<a href="{% url 'superuser:fee_plan_csv' %}"><button class="btn btn-sm fee-type" id="csv" style="background-color: #f7941d"><p>Download Fee Plan</p></button></a>
+<br>
+
+
+  <div class="table-responsive-md">
+    {% csrf_token %}
+  
+  <table class="table table-striped table-hover" id="module_fees">
+      <thead>
+          <tr>
+              <th>Module</th>
+              <th>Membership Size</th>
+              <th>Unit Cost(USD/GHS)</th>
+              <th>Discount/<br>Duration(Months)</th>
+              <th>Updated By</th>
+              <th></th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+  
+          {% for module in payments %}
+  
+          <tr id="{{ module.id }}">
+             
+              <td>{{ module.module }}</td>
+              <td>{{ module.membership_size }}</td>
+              <td>{{ module.unit_fee_usd }} / {{ module.unit_fee_ghs }}</td>
+              {% comment %} <td>{{ module.respective_increase }}</td> {% endcomment %}
+  
+              <td>
+              {% if module.promo_discount == 0 or module.promo_discount == None %}
+                None
+              {% else %}
+                {{ module.promo_discount }}%
+              {% endif %}/
+
+              {% if module.promo_duration == 0 %}
+                None
+              {% else %}
+                {{ module.promo_duration }}
+              {% endif %}
+
+
+            </td>
+  
+  
+              <td>{{ module.created_by }}<br/>{{ module.date_created }}</td>
+              <td><a href="{% url 'superuser:editModuleFees' id=module.id %}"  id="{{ module.id }}"><button class="btn btn-primary btn-sm">Edit</button></a></td>
+              <td><a href="{% url 'superuser:deleteModuleFee' id=module.id %}" class="mod-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+  
+  
+          </tr>
+         
+          {% endfor %}
+      </tbody>
+  </table>
+  
+  </div>  
+
+{% endblock %}

@@ -14,8 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from . import context_processors
+# from . import ajax_datatable_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('superadmin/', include('superuser.urls')),
+    path('api/', include('api.urls')),
+    path('client/', include('client.urls')),
+    path('user/', include('user.urls')),
+    path('', include('login.urls')),
+
+    # path('ajax_datatable/permissions/', ajax_datatable_views.PermissionAjaxDatatableView.as_view(), name="ajax_datatable_permissions"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

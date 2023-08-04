@@ -1,0 +1,47 @@
+{% extends 'superuser/base.html' %}
+{% block content %}
+
+<div class="form-body" style="margin-top:-5%;">
+    <div class="row fee_type">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items" >
+                    <h3 class="text-center mb-3" >Edit Client Membership Size</h3>
+                    <form class="" action="" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Client name</label>
+                            <input class="form-control" type="text" id="client" name="client" value="{{ detail.client_name }}"  readonly>
+                         </div>
+
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Membership Size</label>
+                            <select class="form-select" name="membership_size" id="membership_size" required>
+                                <option value="">---------------------------</option>
+                                {% for x in sizes %}
+                                    <option value="{{ x.id }}">{{ x.size }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        
+
+                        <div class="mt-3 text-center">
+                            <a onclick="window.history.go(-1); return false;"><button type="button" class="btn btn-primary btn-sm mr-3" >Back</button></a>
+
+                            <button id="submit" type="submit" class="btn btn-sm ml-3" style="background-color: #006c40; color: #fff">Submit</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:registerClient' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Register Client</p></button></a>
+
+
+
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover" id="clients_table">
+    <thead>
+        <tr>
+            <th>Client name</th>
+            <th>Applicant name</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Last Updated</th> 
+            <th></th> 
+            <th></th> 
+        </tr>
+    </thead>
+    <tbody>
+      {% csrf_token %}
+
+        {% for x in response %}
+
+        <tr id="{{ x.id }}">
+            <td>{{ x.name }}</td>
+            <td>{{ x.applicantFirstname }} {{ x.applicantSurname }}</td>
+            <td>{{ x.applicantPhone }}</td>
+            <td>{{ x.applicantEmail }}</td>
+            <td>{{ x.creationDate }}</td>
+            
+            <td><a href="{% url 'superuser:viewClient' client_id=x.id %}"><button type="button" class="btn btn-success btn-sm">View</button></a></td>
+            
+            <td><a href="{% url 'superuser:ajax_load_archive' %}" class="archive_member" data-id="{{ x.id  }}" data-archive="1" ><button type="button" class="btn btn-primary btn-sm">Archive</button></a></td>
+
+        </tr>
+        {% empty %}
+        <h4>Add modules to view them here</h4>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% comment %} <table id="example2" style="width:100%" class="display table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Extn.</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Extn.</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </tfoot>
+</table> {% endcomment %}
+</div>   
+{% endblock %}

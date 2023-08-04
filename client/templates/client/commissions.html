@@ -1,0 +1,50 @@
+{% extends 'client/base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+{% comment %} <a href="{% url 'client:setModuleFees' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Module Fee</p></button></a> {% endcomment %}
+
+
+<div class="mt-4" style="display:flex; flex-direction:row;">
+<p>Total Outstanding Commission: {{ total_commission }}</p>
+</div>
+              <br/>
+              <br/>
+              
+
+<!-- Tab content -->
+  <div class="table-responsive-md">
+    {% csrf_token %}
+  
+  <table class="table table-striped table-hover" id="module_fees">
+      <thead>
+          <tr>
+              <th>Client name</th>
+              <th>Commission</th>
+              <th>Amount earned(GHS)</th>
+              <th>Last Updated</th>
+              <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+  
+          {% for module in payments %}
+  
+          <tr id="{{ module.id }}">
+             
+              <td>{{ module.client_name }}</td>
+              <td>{{ module.commission }}</td>
+              <td>{{ module.amount }}</td>
+              <td>{{ module.date_created }}</td>
+              <td>{{ module.status }}</td>
+  
+          </tr>
+         
+          {% endfor %}
+      </tbody>
+  </table>
+  
+  </div>
+  
+{% endblock %}

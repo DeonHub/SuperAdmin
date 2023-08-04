@@ -1,0 +1,42 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:createModule' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Add Module</p></button></a>
+
+
+
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Last Updated</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      {% csrf_token %}
+
+        {% for module in modules %}
+
+        <tr id="{{ module.id }}">
+           
+            <td>{{ module.module }}</td>
+            <td>{{ module.date_created }}</td>
+            <td><a href="{% url 'superuser:viewModule' id=module.id %}"><button type="button" class="btn btn-success btn-sm">View</button></a></td>
+            <td><a href="{% url 'superuser:editModule' id=module.id %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
+            <td><a href="{% url 'superuser:deleteModule' id=module.id %}" class="link-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+        </tr>
+        {% empty %}
+        <h4>Add modules to view them here</h4>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

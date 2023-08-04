@@ -1,0 +1,41 @@
+<div class="input-group mb-3">
+    <label class="input-group-text">Membership Size</label>
+    <input class="form-control" type="text" id="membership_size" name="membership_size" value="{{ mode.membership_size }}"  required readonly>
+</div>
+
+<div class="input-group mb-3">
+    <label class="input-group-text">Duration</label>
+    <input class="form-control" type="text" id="duration" name="duration" value="{{ mode.duration }}"  required readonly>
+</div>
+
+
+<p style="font-size: 10px;">NB: Period is in months</p>
+
+<br/>
+
+
+<div class="row">
+    <div class="form-group col">
+      <label for="inputCity">Renewing Days</label>
+      <input type="text" class="form-control" name="renewing_days" id="inputCity">
+    </div>
+
+    <div class="form-group col">
+        <label for="inputCity">Expired Days</label>
+        <input type="text" class="form-control" name="expiring_days" id="inputCity">
+    </div>
+   
+    <div class="form-group col">
+      <label for="inputZip">Remaining Days</label>
+      <input type="text" class="form-control" name="remaining_days" id="inputZip">
+    </div>
+    
+    </div>
+  <br>
+
+
+<div class="input-group mb-3">
+    <label class="input-group-text">Subscription Fee</label>
+    <input class="form-control" type="text" id="membership_size" name="membership_size" value="{{ mode.assigned_fee }}"  required readonly>
+</div>
+

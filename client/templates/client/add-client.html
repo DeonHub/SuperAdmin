@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+
+
+      <title>Super Admin System </title>
+
+        {% load static %}
+        {% comment %} {% load pwa %}
+        {% progressive_web_app_meta %} {% endcomment %}
+        {% comment %} {% load crispy_forms_tags %} {% endcomment %}
+        
+        {% comment %} <script src="{% static 'client/js/script.js' %}"></script>
+        <script src="{% static 'client/js/side.js' %}"></script> {% endcomment %}
+        {% comment %} <script src="{% static 'client/js/index.js' %}"></script> {% endcomment %}
+        <link rel="icon" href="{% static 'login/media/aksol.png' %}" type="image/jpg" />
+        <script src="{% static 'superuser/js/script.js' %}"></script>
+        <script src="{% static 'superuser/js/side.js' %}"></script>
+
+
+        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
+        <link rel="stylesheet" href="{% static 'client/css/index.css' %}" media="all"> 
+        <link rel="stylesheet" href="{% static 'superuser/css/index.css' %}" media="all">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <style>
+          {% block style %}
+          
+          {% endblock %}
+        </style>
+        
+    </head>
+   
+    <body>
+
+
+        <div class="container">
+            <div class="card">
+                <div class="form">
+                    <div class="left-side">
+                        <div class="left-heading">
+                            {% comment %} <h3>indeed</h3> {% endcomment %}
+                            <center>
+                            <img src="{% static 'login/media/aksol.png' %}" alt="img" width="60%" height="60%" style="border-radius:50%; margin-bottom:-10%;"/>
+                            </center>
+                        </div>
+                        <div class="steps-content" style="margin-bottom:-5%;">
+                            <h3>Step <span class="step-number">1</span></h3>
+                            <p class="step-number-content active">Enter your personal and organization information.</p>
+                            <p class="step-number-content d-none">Enter information about your location.</p>
+                            <p class="step-number-content d-none">Enter information about leaders(optional)</p>
+                            <p class="step-number-content d-none">Enter password for this account</p>
+                        </div>
+                        <ul class="progress-bar">
+                            <li class="active">Bio Data</li>
+                            <li>Location</li>
+                            <li>Leaders</li>
+                            <li>Password</li>
+                        </ul>
+                        
+        
+                        
+                    </div>
+
+
+
+                    
+                    <form action="" method="post" id="registrationForm" name="registrationForm" class="registrationForm" data-districts-url="{% url 'client:ajax_load_districts' %}"  data-const-url="{% url 'client:ajax_load_constituencies' %}" data-sizes-url="{% url 'client:ajax_load_sizes' %}">
+                        {% csrf_token %}
+
+                       
+                    <div class="right-side">
+
+                        <div class="main active">
+                            {% comment %} <small><span class="material-symbols-outlined">person</span></small> {% endcomment %}
+                            <div class="text">
+                                <h2>Bio Data</h2>
+                                <p></p>
+                            </div>
+
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require id="user_name" name="firstname">
+                                    <span>Firstname*</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" required require name="surname">
+                                    <span>Surname*</span>
+                                </div>
+                                <div class="input-div">
+                                    <select name="gender">
+                                        <option value="">Select Gender</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                    </select>
+                                
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="input-text">
+                                
+                                <div class="input-div"> 
+                                    <input type="email" required require name="email">
+                                    <span>Email Address*</span>
+                                </div>
+
+                                <div class="input-div">
+                                    <input type="tel" required require name="phone" maxlength="10" onkeypress="return isNumberKey(event)">
+                                    <span>Contact*</span>
+                                </div>
+
+                                <div class="input-div">
+                                    <input type="text" required require name="name">
+                                    <span>Organization name*</span>
+                                </div>
+                            </div>
+
+
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <select name="accountCategory" id="accountCategory" required require>
+                                        <option>Select Account Category</option>
+                                        <option value="1">Business</option>
+                                        <option value="2">Religious</option>
+                                        <option value="3">Non Profit</option>
+                                    </select>
+                                
+                                </div>
+
+                                <div class="input-div" hidden>
+                                    <input type="text" name="accountCategoryOther" id="accountCategoryOther" value="Demo Organization" >
+                                    
+                                </div>
+
+
+                                <div class="input-div">
+                                    
+                                    <select name="client_size" id="client_sizex">
+                                            <option>Select Membership size</option>
+                                        {% for x in membership_sizes %}
+                                            <option value="{{ x.id }}">{{ x.size }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <input type="text" name="membership_size" id="membership_size" value="1" hidden>
+
+                            
+
+                            <div class="input-text">
+                               
+                                <div class="input-div">
+                                    <select>
+                                        <option>Is your Organization legally registered?</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                
+                                </div>
+
+                                <div class="input-div">
+                                    <input type="text" name="website" placeholder="Enter organization website">
+                                    <span>Organization website</span>
+                                </div>
+                            </div>
+
+
+                            <div class="input-text">
+                                
+                                <div class="input-div input-group">
+                                    <label class="input-group-text" for="logo" style="border:1px solid black, color:black;">Upload Organizaton Logo </label>
+                                    <input type="file" class="form-control" id="logo" accept="image/png, .jpeg, .jpg, image/gif">
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="buttons">
+                                <button class="next_button" type="button">Next Step</button>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="main">
+                            {% comment %} <small><span class="material-symbols-outlined">location_on</span></small> {% endcomment %}
+                            <div class="text">
+                                <h2>Location</h2>
+                                <p></p>
+                            </div>
+
+                            <div class="input-text">
+
+                                
+                                    <div class="input-div">
+                                        <select name="country" id="country" onchange="changeRegion(this)">
+                                            <option value="">Select Country</option>
+                                            {% for x in countries %}
+                                            <option value="{{ x.id }}">{{ x.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                
+                                
+                                
+                                    <div class="input-div">
+                                        <input type="text" name="stateProvince" id="stateProvince" disabled>
+                                        <span>State/Province</span>
+                                    </div>
+                                 
+
+                                
+                                    <div class="input-div">
+                                        <select name="region" id="region" disabled>
+                                            <option>Select Region</option>
+                                            {% for x in regions %}
+                                            <option value="{{ x.id }}">{{ x.location }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+     
+                            </div>
+
+
+
+
+
+                            <div class="input-text">
+                               
+                                    <div class="input-div">
+                                        <select name="district" id="district" disabled>
+                                            <option>Select District</option>
+                                        </select>
+                                    </div>
+                                
+
+                                    <div class="input-div">
+                                        <select name="constituency" id="constituency" disabled>
+                                            <option>Select Constituency</option>
+                                        </select>
+                                    </div>
+
+                            </div>
+
+
+
+
+
+
+                            <div class="input-text">
+                               
+                                <div class="input-div">
+                                    <input type="text" name="community" placeholder="Enter community">
+                                    <span>Community</span>
+                                </div>
+
+                                <div class="input-div">
+                                    <input type="text" name="postal_address" placeholder="Enter postal address">
+                                    <span>Postal address</span>
+                                </div>
+                            </div>
+
+
+                            <div class="buttons button_space">
+                                <button class="back_button" type="button">Back</button>
+                                <button class="next_button" type="button">Next Step</button>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="main">
+                            {% comment %} <small><span class="material-symbols-outlined">groups</span></small> {% endcomment %}
+                            <div class="text">
+                                <h2>Leaders</h2>
+                                <p></p>
+                            </div>
+
+                            
+                            
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" name="leader_1_name" placeholder="Enter leader 1 name">
+                                    <span>Leader 1 name</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_1_contact" placeholder="Enter leader 1 contact">
+                                    <span>Leader 1 contact</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_1_email" placeholder="Enter leader 1 email">
+                                    <span>Leader 1 email</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" name="leader_2_name" placeholder="Enter leader 2 name">
+                                    <span>Leader 2 name</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_2_contact" placeholder="Enter leader 2 contact">
+                                    <span>Leader 2 contact</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_2_email" placeholder="Enter leader 2 email">
+                                    <span>Leader 2 email</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" name="leader_3_name" placeholder="Enter leader 3 name">
+                                    <span>Leader 3 name</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_3_contact" placeholder="Enter leader 3 contact">
+                                    <span>Leader 3 contact</span>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="text" name="leader_3_email" placeholder="Enter leader 3 email">
+                                    <span>Leader 3 email</span>
+                                </div>
+                            </div>
+
+                            <div class="buttons button_space">
+                                <button class="back_button" type="button">Back</button>
+                                <button class="next_button" type="button">Next Step</button>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="main">
+                            {% comment %} <small><span class="material-symbols-outlined">lock</span></small> {% endcomment %}
+                            <div class="text">
+                                <h2>Password</h2>
+                                {% comment %} <p>Enter secure password for this account</p> {% endcomment %}
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="password" required name="password" id="password">
+                                    <span>Password</span>
+                                    <div style="display:flex; flex-direction:row;"><input class="form-check" type="checkbox" id="show_pass" onchange="togglePassword1()"/><p id="show_par" style="font-size:12px; margin-left:2%;">Show Password</p></div>
+                                </div>
+                                <div class="input-div"> 
+                                    <input type="password" required name="confirm_password" id="conf_password">
+                                    <span>Confirm Password</span>
+                                    <div style="display:flex; flex-direction:row;"><input class="form-check mr-2" type="checkbox" id="show_conf" onchange="togglePassword2()"/><p id="show_car" style="font-size:12px; margin-left:2%;">Show Password</p></div>
+
+                                </div>
+
+
+                             
+                            </div>
+                            <div style="display:flex; flex-direction:row;"><input class="form-check mr-2" type="checkbox" required/><p id="show_car" style="font-size:12px; margin-left:2%;">By creating an account you agree to the Terms and Conditions</p></div>
+                            <br/>
+                            <div class="buttons button_space">
+                                <button class="back_button">Back</button>
+                                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                            </div>
+                        </div>
+
+                    {% comment %} </center> {% endcomment %}
+                    </form>
+
+                         {% comment %}  {% endcomment %}
+                        
+                    
+                      
+        
+                    
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    
+        <script>
+          {% if messages %}
+          {% for msg in messages %}
+            swal('{{ msg }}');
+    
+          {% endfor %}
+    
+        window.localStorage.setItem('token', '1fe8480feff19495f8799e2133d7e60fe8a7628fdbe9416e467343a49978d3c5');
+        {% endif %}
+        </script>
+
+        
+
+        <script>
+            var next_click=document.querySelectorAll(".next_button");
+            var main_form=document.querySelectorAll(".main");
+            var step_list = document.querySelectorAll(".progress-bar li");
+            var num = document.querySelector(".step-number");
+            let formnumber=0;
+
+
+            const togglePassword1 = () => {
+                let check = document.getElementById('show_pass')
+                let password = document.getElementById('password')
+                let show_par = document.getElementById('show_par')
+                
+                if (check.checked){
+                    password.setAttribute("type", "text")
+                    show_par.innerHTML = "Hide Password"
+                }
+                else{
+                    password.setAttribute("type", "password")
+                    show_par.innerHTML = "Show Password"
+
+                }
+            }
+
+
+            const togglePassword2 = () => {
+                let check = document.getElementById('show_conf')
+                let password = document.getElementById('conf_password')
+                let show_car = document.getElementById('show_car')
+
+
+
+                if (check.checked){
+                    password.setAttribute("type", "text")
+                    show_car.innerHTML = "Hide Password"
+                }
+                else{
+                    password.setAttribute("type", "password")
+                    show_car.innerHTML = "Show Password"
+                }
+            }
+
+
+            next_click.forEach(function(next_click_form){
+                next_click_form.addEventListener('click',function(){
+                    if(!validateform()){
+                        return false
+                    }
+                formnumber++;
+                updateform();
+                progress_forward();
+                contentchange();
+                });
+            }); 
+
+
+
+
+            var back_click=document.querySelectorAll(".back_button");
+            back_click.forEach(function(back_click_form){
+                back_click_form.addEventListener('click',function(){
+                formnumber--;
+                updateform();
+                progress_backward();
+                contentchange();
+                });
+            });
+
+
+
+            var username=document.querySelector("#user_name");
+            var shownname=document.querySelector(".shown_name");
+            
+
+            var submit_click=document.querySelectorAll(".submit_button");
+            submit_click.forEach(function(submit_click_form){
+                submit_click_form.addEventListener('click',function(){
+                shownname.innerHTML= username.value;
+                formnumber++;
+                updateform(); 
+                });
+            });
+
+
+
+
+            // var heart=document.querySelector(".fa-heart");
+            // heart.addEventListener('click',function(){
+            //    heart.classList.toggle('heart');
+            // });
+
+
+
+            // var share=document.querySelector(".fa-share-alt");
+            // share.addEventListener('click',function(){
+            //    share.classList.toggle('share');
+            // });
+
+            
+
+
+            function updateform(){
+                main_form.forEach(function(mainform_number){
+                    mainform_number.classList.remove('active');
+                })
+                main_form[formnumber].classList.add('active');
+            } 
+            
+
+
+            function progress_forward(){
+                // step_list.forEach(list => {
+                    
+                //     list.classList.remove('active');
+                    
+                // }); 
+                
+                
+                num.innerHTML = formnumber+1;
+                step_list[formnumber].classList.add('active');
+            }  
+
+
+
+            function progress_backward(){
+                var form_num = formnumber+1;
+                step_list[form_num].classList.remove('active');
+                num.innerHTML = form_num;
+            } 
+            
+
+
+            var step_num_content=document.querySelectorAll(".step-number-content");
+
+            function contentchange(){
+                step_num_content.forEach(function(content){
+                    content.classList.remove('active'); 
+                    content.classList.add('d-none');
+                }); 
+                step_num_content[formnumber].classList.add('active');
+            } 
+            
+            
+
+
+
+            function validateform(){
+                validate=true;
+                var validate_inputs=document.querySelectorAll(".main.active input");
+                validate_inputs.forEach(function(vaildate_input){
+                    vaildate_input.classList.remove('warning');
+                    if(vaildate_input.hasAttribute('require')){
+                        if(vaildate_input.value.length==0){
+                            validate=false;
+                            vaildate_input.classList.add('warning');
+                        }
+                    }
+                });
+                return validate;
+                
+            }
+
+            {% comment %} alert("Hello") {% endcomment %}
+
+        </script>
+
+   
+
+    <script>
+
+
+        $(document).ready(function(){
+        
+            $("#registrationForm").submit(function(event){
+        
+                event.preventDefault();
+        
+                $('#submit').prop('disabled', true);
+                $('#submit').text('Processing....');
+        
+                var $form = $(this);
+                var serializedData = $form.serialize();
+                var size_id = $('#client_sizex').val();
+        
+                var requiredInputs = $("[required]");
+                var emptyFields = [];
+                
+                requiredInputs.each(function() {
+                  if ($(this).val() === "") {
+                    emptyFields.push($(this).attr("name"));
+                  }
+                });
+            
+        
+      
+                $.ajax({
+                    url: 'https://db-api-v2.akwaabasoftware.com/clients/register',
+                    
+                    type: "POST",
+                    data: serializedData,
+                    dataType:"json",
+                  }).done(function(data){
+                    
+                    
+                    var client_id = data.user.id;
+                    var client_name = `${data.user.firstname} ${data.user.surname}`;
+                    var url = $("#registrationForm").attr("data-sizes-url");
+        
+                    $.ajax({
+                        url: url,
+                        data: {
+                        'client_id': client_id,
+                        'client_name': client_name,
+                        'size_id': size_id,
+                        },
+                        success: function (data) {
+        
+                            alert("Registration successful.")
+                            window.location.href = "https://super.akwaabasoftware.com/client/"
+                        }
+                    });
+                    
+        
+        
+                  }).fail(function(data){
+                    $('#submit').prop('disabled', false);
+                    $('#submit').text('Submit');
+        
+                    console.log(data.responseJSON)
+                    if(data.responseJSON.non_field_errors){
+                        alert(data.responseJSON.non_field_errors)
+                    
+                    }else{
+                        
+                        alert("Some required fields are still empty.\nPlease make sure you fill the required fields to submit the form")
+        
+                    }
+                  })
+      
+        
+                 
+        
+        
+            });
+        
+        });  
+        
+        
+    </script>  
+       
+    
+
+<script>
+            
+
+  $(document).ready(function(){
+      $("#region").change(function () {
+        var url = $("#registrationForm").attr("data-districts-url");
+        var region_id = $(this).val();
+    
+        $.ajax({
+          url: url,
+          data: {
+            'region_id': region_id,
+          },
+          success: function (data) {
+              // alert("Hello")
+            $("#district").html(data);
+          }
+        });
+    
+      });
+    })
+
+
+    $(document).ready(function(){
+      $("#district").change(function () {
+        var url = $("#registrationForm").attr("data-const-url");
+        var district_id = $(this).val();
+        var region_id = $("#region").val();;
+        
+
+        $.ajax({
+          url: url,
+          data: {
+            'district_id': district_id,
+            'region_id': region_id,
+          },
+          success: function (data) {
+              // alert("Hello")
+            $("#constituency").html(data);
+          }
+        });
+        
+    
+      });
+    })
+
+
+    $(document).ready(function(){
+      $("#client_size").change(function () {
+    
+        var url = $("#paymentForm").attr("data-sizes-url");
+        var client_id = $(this).val();
+    
+        $.ajax({
+          url: url,
+          data: {
+            'client_id': client_id,
+          },
+    
+          success: function (data) {
+            $("#modula").val(data);
+    
+          }
+        });
+    
+    });
+    })
+
+</script>
+
+{% comment %} <script>
+            
+
+    $(document).ready(function(){
+        $("#region").change(function () {
+          var url = $("#paymentForm").attr("data-districts-url");
+          var region_id = $(this).val();
+      
+          $.ajax({
+            url: url,
+            data: {
+              'region_id': region_id,
+            },
+            success: function (data) {
+                // alert("Hello")
+              $("#district").html(data);
+            }
+          });
+      
+        });
+      })
+
+
+      $(document).ready(function(){
+        $("#district").change(function () {
+          var url = $("#paymentForm").attr("data-const-url");
+          var district_id = $(this).val();
+          var region_id = $("#region").val();;
+          
+
+          $.ajax({
+            url: url,
+            data: {
+              'district_id': district_id,
+              'region_id': region_id,
+            },
+            success: function (data) {
+                // alert("Hello")
+              $("#constituency").html(data);
+            }
+          });
+          
+      
+        });
+      })
+</script> {% endcomment %}
+
+
+
+</body>
+
+</html>

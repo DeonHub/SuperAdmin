@@ -1,0 +1,55 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:createPaymentDetails' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Add Payment Details</p></button></a>
+<br/>
+<br/>
+<hr/>
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+    {% csrf_token %}
+
+<table class="table table-striped table-hover" id="payment_details">
+    <thead>
+        <tr>
+            <th>Client name</th>
+            <th>Merchant Account Number</th>
+            
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+
+        {% for module in details %}
+
+        <tr id="{{ module.id }}">
+           
+            <td>{{ module.client_name }}</td>
+            <td>{{ module.merchant_account_number }}</td>
+            {% comment %} <td>{{ module.api_key }}</td> {% endcomment %}
+            <td><a href="{% url 'superuser:editPaymentDetails' id=module.id %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
+            <td><a href="{% url 'superuser:deletePaymentDetails' id=module.id %}" class="det-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+        </tr>
+        {% empty %}
+        <h4>Add payment details to view them here</h4>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}
+
+
+
+{% comment %} {
+    "firstname":"Clyde",
+    "surname":"Renobiv",
+    "email": "cadaya2758@octovie.com",
+    "contact":"0558587873",
+    "country":"Ghana",
+    "medium":"email",
+    "image": "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2022-10/girl-names-that-start-with-c-zz-221027-768b76.jpg"
+} {% endcomment %}

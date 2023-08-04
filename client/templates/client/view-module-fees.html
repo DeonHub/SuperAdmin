@@ -1,0 +1,81 @@
+{% extends 'client/base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+{% comment %} <a href="{% url 'client:setModuleFees' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Module Fee</p></button></a> {% endcomment %}
+<a href="{% url 'superuser:fee_plan_csv' %}"><button class="btn btn-sm fee-type" id="csv" style="background-color: #f7941d"><p>Download Fee Plan</p></button></a>
+<br>
+
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              
+  
+
+<!-- Tab content -->
+
+{% comment %} <div id="London" class="tabcontent active"> {% endcomment %}
+  <div class="table-responsive-md">
+    {% csrf_token %}
+  
+  <table class="table table-striped table-hover" id="module_fees">
+      <thead>
+          <tr>
+              <th>Module</th>
+              <th>Membership Size</th>
+              <th>Unit Cost(USD/GHS)</th>
+              <th>Agent Cost(USD/GHS)</th>
+              <th>Promo Discount/Months</th>
+              <th>Updated By</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+  
+          {% for module in payments %}
+  
+          <tr id="{{ module.id }}">
+             
+              <td>{{ module.module }}</td>
+              <td>{{ module.membership_size }}</td>
+              <td>{{ module.unit_fee_usd }} / {{ module.unit_fee_ghs }}</td>
+
+
+              <td>
+                {% if module.agent_cost %}
+                  {% for x,y in module.agent_cost.items %}
+                    {% if x == usercode %}
+                      {{ y.agent_cost_usd }} / {{ y.agent_cost_ghs }}
+                    {% else %}
+                      {{ module.unit_fee_usd }} / {{ module.unit_fee_ghs }}
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ module.unit_fee_usd }} / {{ module.unit_fee_ghs }}
+                {% endif %}
+
+                
+              </td>
+  
+              
+              <td>{% if module.promo_discount == 0 %} None / {% if module.promo_duration == 0 %} None {% else %} {{ module.promo_duration }} {% endif %} {% else %} {{ module.promo_discount }}% / {% if module.promo_duration == 0 %} None {% else %} {{ module.promo_duration }} {% endif %}{% endif %}</td>
+              
+              
+              
+              
+  
+              <td>{{ module.created_by }}<br/>{{ module.date_created }}</td>
+              <td><a href="{% url 'client:editModuleFees' id=module.id %}"  id="{{ module.id }}"><button class="btn btn-primary btn-sm">Edit</button></a></td>
+  
+  
+          </tr>
+         
+          {% endfor %}
+      </tbody>
+  </table>
+  
+  </div>
+  
+{% endblock %}

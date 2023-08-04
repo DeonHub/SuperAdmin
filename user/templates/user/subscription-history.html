@@ -1,0 +1,120 @@
+{% extends 'user/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %} 
+{% block content %}
+
+<div class="popup" popup-name="popup-1">
+  <div class="popup-content">
+      
+
+    <form method="post" id="veriform">
+      {% csrf_token %}
+
+
+      <h5>Select modules you want to cancel subscription</h5>
+      <p>Hold control key to select multiple modules</p>
+      <p style="color:red; font-size:10px;">Note: Cancelling database subscription will cancel all other subscriptions</p>
+      <div id="desc"></div>
+
+
+      <input type="text" id="subscription_id" class="form-control mt-3" name="subscription_id" value="" hidden/>
+
+      <!-- Submit button -->
+      <button type="button" class="btn btn-sm btn-block mb-4" style="background-color: #5b92e5; color:white;" id="button">Submit</button>
+
+    </form>
+    <a class="close-button" popup-close="popup-1" href="javascript:void(0)">x</a>
+  </div>
+</div>
+<br/>
+              
+<a href="{% url 'user:accountSubscription' token=token %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Account Subscription</p></button></a>
+<br/>
+<br/>
+<hr/>
+<br/>
+        
+
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+  {% csrf_token %}
+
+<table class="table table-striped table-hover"   id="payment_history">
+    <thead>
+        <tr>
+            <th>Subscribed Modules</th>
+            <th>Amount (USD/GHS)</th>
+            <th>Last Updated</th>
+            <th>Status / Expiry Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for x in histories %}
+
+        {% comment %} {{ today < x.expires_on }} {% endcomment %}
+
+        <tr id="{{ x.id }}">
+           
+            <td>
+              <ul>
+                {% for m, n  in x.modules.items %}
+                  <li>{{ m }}</li>
+                {% empty%}
+                  <li>None</li>
+                {% endfor %}
+             </ul>
+            </td>
+            {% comment %} <td>{{ x.renewing_days }}</td> {% endcomment %}
+            <td>{{ x.subscription_fee_usd }} / {{ x.subscription_fee_ghs }}</td>
+            <td>{{ x.date_created }}</td>
+
+            <td>
+
+              {% if x.expires_on %}
+                {% if not x.expired %}
+                <ul style="list-style-type:none;">
+                  <li style="color:green;">Active</li><br/>
+                  <li>Expires on: {{ x.expires_on|date:"M d, Y " }}</li>
+                </ul>
+                {% else %}
+                <ul>
+                  <li style="color:red;">Expired</li><br/>
+                  <li>Expired on: {{ x.expires_on|date:"M d, Y " }}</li>
+                </ul>
+                {% endif %}
+
+              {% else %}
+              <ul style="list-style-type:none;">
+                <li style="color:green;">Active</li><br/>
+                <li>Expires on: None</li>
+              </ul>
+              {% endif %}
+            </td>
+            <td>
+              {% if not x.expired %}
+              <a href="{% url 'user:subscriptionExtension' id=x.id token=token %}"><button class="btn btn-primary btn-sm">Extend</button></a>
+              {% else %}
+              <a href="{% url 'user:subscriptionRenewal' id=x.id token=token %}"><button class="btn btn-success btn-sm">Renew</button></a>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if not x.expired %}
+              <a href="javascript:void(0)" popup-open="popup-1" data-id="{{ x.id }}" class="sub-delete" id="{{ x.id }}" data-url="{% url 'client:ajax_load_modules' %}" ><button class="btn btn-danger btn-sm">Cancel</button></a>
+              {% else %}
+              <a href="{% url 'user:deleteSubscription' id=x.id token=token %}" class="pass-delete" id="{{ x.id }}" ><button class="btn btn-danger btn-sm">Delete</button></a>
+              {% endif %}
+              </td>
+        </tr>
+       
+        {% endfor %}
+    </tbody>
+</table>
+
+</div> 
+
+
+{% endblock %}

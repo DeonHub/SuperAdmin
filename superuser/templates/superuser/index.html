@@ -1,0 +1,396 @@
+{% extends 'superuser/base.html' %}
+
+{% block content %}
+
+<br/>
+
+<div id="root">
+    <div class="container pt-5">
+      <div class="row align-items-stretch">
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+
+            <div class="">
+            <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Clients</h4>
+            </div>
+            <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count text-center" style="color: blue;">{{ total_clients }}</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Male/Female</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ total_clients_male }}/{{ total_clients_female }}</span>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+  
+              <div class="">
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Agents</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count text-center" style="color: blue;">{{ total_agents }}</span>
+              </div>
+  
+            </div>
+          </div>
+
+
+          <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Male/Female</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ total_agents_male }}/{{ total_agents_female }}</span>
+            </div>
+          </div>
+        </div>
+
+
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div id="root">
+    <div class="container pt-5">
+      <div class="row align-items-stretch">
+
+
+        
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+                <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Database Manager</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;"> {{ database }}</span>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+            <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Attendance Manager</h4>
+            </div>
+            <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #ff0000;">{{ attendance }}</span>
+            </div>
+            </div>
+          </div>
+  
+          <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Fees Manager</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: blue;">{{ fees }}</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+            <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">School Manager</h4>
+            </div>
+            <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ school }}</span>
+            </div>
+          </div>
+        </div>
+
+
+        
+
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div id="root" style="margin-top: -2%;">
+    <div class="container pt-5">
+      <div class="row align-items-stretch">
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">File/Inventory</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: blue;">{{ file }}</span>
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+          <div class="wrap d-flex flex-column">
+          <div>
+            <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Messenger</h4>
+          </div>
+          <div>
+            <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #ff0000;">{{ messenger }}</span>
+          </div>
+          </div>
+        </div>
+  
+          <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+  
+              <div class="">
+  
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Finance Manager</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count text-center" style="color: blue;">{{ finance }}</span>
+              </div>
+  
+            </div>
+          </div>
+
+
+          <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Postmaster</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ postmaster }}</span>
+            </div>
+          </div>
+        </div>
+      
+
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div id="root" style="margin-top: -2%;">
+  <div class="container pt-5">
+    <div class="row align-items-stretch">
+
+
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Mobile App</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ app }}</span>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Total Commission</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ total_commission }}0</span>
+            </div>
+          </div>
+        </div>
+  
+  
+  
+        <div class="c-dashboardInfo col-lg-3 col-md-6">
+            <div class="wrap d-flex flex-column">
+              <div>
+              <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Active Clients</h4>
+              </div>
+              <div>
+              <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ active_clients }}</span>
+            </div>
+          </div>
+        </div>
+
+      <div class="c-dashboardInfo col-lg-3 col-md-6">
+        <div class="wrap d-flex flex-column">
+          <div>
+          <h4 class="heading heading5 hind-font medium-font-weight c-dashboardInfo__title">Expired Clients</h4>
+          </div>
+          <div>
+          <span class="hind-font caption-12 c-dashboardInfo__count" style="color: #006c40;">{{ expired_clients }}</span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <br>
+    <br>
+  </div>
+</div>
+</div>
+<br/>
+<br/>
+<h2 class="text-center text-danger">{{ year }} Report</h2>
+<br/>
+  <div class="chart">
+    <div id="container">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div id="container2">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+
+
+
+
+  <script>
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const ctx2 = document.getElementById('barChart').getContext('2d');
+
+  const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels:["Total Clients", "Total Male Clients", "Total Female Clients", "Total Agents", "Total Male Agents", "Total Female Agents", "Total Commission", "Active Clients", "Expired Clients"],
+          datasets: [{
+              label: 'System Statistics',
+              data: {{ statistics| safe }},
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(55, 206, 86, 1)',
+                  'rgba(75, 192, 190, 1)',
+                  'rgba(153, 12, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(54, 16, 235, 1)',
+                  'rgba(25, 99, 132, 1)',
+                  'rgba(255, 159, 50, 1)',
+                
+
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 0)',
+                  'rgba(54, 162, 235, 0)',
+                  'rgba(255, 206, 86, 0)',
+                  'rgba(75, 192, 192, 0)',
+                  'rgba(153, 102, 255, 0)',
+                  'rgba(255, 159, 64, 0)',
+                  'rgba(54, 162, 235, 0)',
+                  'rgba(255, 99, 132, 0)',
+                  'rgba(153, 102, 255, 0)',
+
+              ],
+              hoverOffset: 5,
+              borderWidth: 10
+          }]
+      },
+      options: {
+        responsive: true,
+
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+
+
+  {% comment %} const labels = Utils.months({count: 12}); {% endcomment %}
+  const barChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+          labels: ["Database Manager", "Fees Manager", "School Manager", "Attendance Manager", "Mobile App", "Postmaster", "Messenger", "Givers Aid", "Finance Manager", "File Manager"],
+          datasets: [{
+              label: 'Module Subscriptions',
+              data: {{ modules| safe }},
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+
+          scales: {
+              y: {
+                 
+                  min: 0,
+                  max: 1000,
+                  ticks: {
+                    // forces step size to be 50 units
+                    stepSize: 10
+                  }
+              }
+          }
+      }
+  });
+</script>
+
+
+{% endblock %}

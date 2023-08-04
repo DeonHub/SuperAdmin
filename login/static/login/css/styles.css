@@ -1,0 +1,21 @@
+
+footer{
+    background-color: rgba(0, 0, 0); 
+    color:white;
+  } 
+  
+  footer .footer{
+    background-color: rgba(0, 0, 0);
+  }
+  
+  
+  @media only screen and (max-width : 760px) and (min-width : 320px) {
+    footer .footer{
+      margin-left:0%;
+    }
+  
+    .card{
+      width:120%;
+      margin-left:-10%;
+    }
+  }/*# sourceMappingURL=styles.css.map */

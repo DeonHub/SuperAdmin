@@ -1,0 +1,41 @@
+{% extends 'client/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'client:registerClient' %}"><button class="btn btn-sm fee-type" id="agent" style="background-color: #f7941d"><p>Register Client</p></button></a>
+
+{% csrf_token %}
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover"  id="all_clients">
+    <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>Client Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+
+        {% for client in clients %}
+
+        <tr id="{{ client.id }}">
+            
+           <td>{{ client.account_name }} </td>
+           <td>{{ client.client_name }} </td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.contact }}</td>
+          
+            <td><a href="{% url 'client:viewClient' client_id=client.pid %}"><button type="button" class="btn btn-success btn-sm">View Details</button></a></td>
+        </tr> 
+
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

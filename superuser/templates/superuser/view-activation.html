@@ -1,0 +1,44 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:setActivation' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Activation Fees</p></button></a>
+<br/>
+<br/>
+<hr/>
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover" id="">
+    <thead>
+        <tr>
+            <th>Membership Size</th>
+            <th>Activation Fee(GHS)</th>
+            <th>Trial Duration(Days)</th>
+            <th>Last Updated</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      {% csrf_token %}
+
+        {% for module in details %}
+
+        <tr id="{{ module.id }}">
+            <td>{{ module.membership_size }}</td>
+            <td>{{ module.activation_fee }}</td>
+            <td>{{ module.duration }}</td>
+            <td>{{ module.date_created }}</td>
+            <td><a href="{% url 'superuser:editActivation' id=module.id %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
+            <td><a href="{% url 'superuser:deleteActivation' id=module.id %}" class="active-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+
+        </tr>
+        {% empty %}
+        <h4>Add payment details to view them here</h4>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

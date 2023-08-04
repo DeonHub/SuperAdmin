@@ -1,0 +1,137 @@
+{% extends 'superuser/base.html' %}
+{% block content %}
+
+<div class="form-body">
+    <div class="row fee_type">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h2 class="text-center mb-3" >Edit Agent</h2>
+                    <form class="" action="" method="post" enctype="multipart/form-data">
+
+
+                        {% csrf_token %}
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Firstname</label>
+                            <input class="form-control" type="text" id="firstname" name="firstname" value="{{ agent.firstname }}"  required>
+                         </div>
+
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Surname</label>
+                            <input class="form-control" type="text" id="surname" name="surname" value="{{ agent.surname }}"  required>
+                         </div>
+
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ agent.email }}"  required>
+                         </div>
+
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Contact</label>
+                            <input class="form-control" type="tel" id="contact" name="contact" value="{{ agent.contact }}"  required>
+                         </div>
+
+            
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Gender</label>
+                             <select class="form-select" name="gender" id="gender" required>
+                                   <option selected value="">Gender</option>
+
+                                   {% if agent.gender == 1 %}
+                                        <option value="1" selected="selected">Male</option>
+                                        <option value="2" >Female</option>
+                                   {% else %}
+                                        <option value="1">Male</option>
+                                        <option value="2" selected="selected">Female</option>
+                                   {% endif %}
+                                
+                            </select>
+                         </div>
+
+
+
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Account Type</label>
+                             <select class="form-select" name="account" id="account" required>
+                                   <option selected value="">Account Type</option>
+
+                                   {% if agent.account == 'limited' %}
+                                        <option value="limited" selected="selected">Limited</option>
+                                        <option value="unlimited" >Unlimited</option>
+                                   {% else %}
+                                        <option value="limited">Limited</option>
+                                        <option value="unlimited" selected="selected">Unlimited</option>
+                                   {% endif %}
+                                
+                            </select>
+                         </div>
+
+                     
+                         <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Select Country</label>
+                             <select class="form-select" name="country" id="country">
+                                   <option selected value="">Country</option>
+                                   {% for x in countries %}
+                                 <option value="{{ x.name }}">{{ x.name }}</option>
+                                 {% endfor %}
+                                
+                             </select>
+                         </div>
+
+
+
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Upload Profile Image</label>
+                            <input type="file" class="form-control" id="logo" name="profile" accept="image/png, .jpeg, .jpg, image/gif" onclick="getLogo()">
+                          </div>
+                          <p style="font-size: 10px;">Original file: {{ agent.profile.url }}</p>
+
+                           <div class="logo-preview" id="logo-preview" >
+                            <img src="" alt="logo-preview" class="logo-image" width="" heigth="" style="margin-left:-5%;">
+                            <span class="logo-text">Profile Preview</span>
+                        </div>
+
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="signature">Upload ID Card</label>
+                            <input type="file" class="form-control" id="signature" name="card" accept="image/png, .jpeg, .jpg, image/gif" onclick="getFile()" >
+                          </div>
+                          <p style="font-size: 10px;">Original file: {{ agent.card.url }}</p>
+
+                            <div class="signature-preview" id="signature-preview">
+                                    <img src="" alt="signature-preview" class="image" width="50px" heigth="50px">
+                                    <span class="default-text">ID Card Preview</span>
+                            </div>
+                    
+
+                            <div class="input-group mt-3">
+                                <label class="input-group-text" for="logo">Onetime Activation Commission</label>
+                                <input class="form-control" type="number" id="activation_commission" name="activation_commission" value="{{ agent.activation_commission }}"  required>
+                             </div>
+    
+                             <div class="input-group mt-3">
+                                <label class="input-group-text" for="logo">Account Renewal Commission</label>
+                                <input class="form-control" type="number" id="renewal_commission" name="renewal_commission" value="{{ agent.renewal_commission }}"  required>
+                             </div>
+
+
+
+                        <div class="mt-3 text-center">
+                            <a onclick="window.history.go(-1); return false;"><button type="button" class="btn btn-primary btn-sm mr-3" >Back</button></a>
+
+                            <button id="submit" type="submit" class="btn btn-sm ml-3" style="background-color: #006c40; color: #fff">Submit</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

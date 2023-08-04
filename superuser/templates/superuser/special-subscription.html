@@ -1,0 +1,182 @@
+{% extends 'superuser/base.html' %}
+{% block content %}
+
+<div class="form-body" style="">
+    <div class="row fee_type">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h2 class="text-center mb-3" >Special Subscription</h2>
+                    <form class="" action="" method="post" enctype="multipart/form-data" id="paymentForm" name="myFormName" data-item-url="{% url 'superuser:ajax_load_items' %}" data-size-url="{% url 'superuser:ajax_load_size' %}"  data-client-url="{% url 'superuser:ajax_load_time' %}" data-expired-url="{% url 'superuser:ajax_load_expired' %}">
+
+                        {% csrf_token %}
+<br/>
+                        {% comment %}
+                            <div class="input-group mb-3">
+                            <label class="input-group-text">Subscription Type</label>
+                            <select id="subscription_type" name="subscription_type" class="form-select" required onchange="showDur(this)">
+                                <option value="" selected >---------------------</option>
+                                <option value="Account Activation">Account Activation</option>
+                                <option value="Module Subscription">Module Subscription</option>
+                            </select>
+                            </div>
+                        {% endcomment %}
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text">Client name</label>
+
+                       <select class="js-data-example-ajax form-select" id="client_size" name="client" required>
+                            <option value="" selected>---------------------</option>
+                            {% for x, y in arr %}
+                             <option value="{{ y }}" required>{{ x }}</option>
+                             {% endfor %} 
+                        </select>
+                        </div>
+                        
+                        <div id="skim">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text">Membership size</label>
+                                <input type="text" id="modula" name="membership_size" class="form-select" placeholder="Select membership size" required readonly/>
+                            </div>
+                        </div>
+
+
+
+                        <div id="dur" style="display:none;">
+                        <div class="input-group mt-3">
+                            <label class="input-group-text">Duration</label>
+                            <input class="form-control" type="number" id="duration" name="duration" placeholder="Enter duration..." >
+                         </div>
+                        <p style="font-size: 10px;">NB: Period is in days</p>
+                        </div>
+
+
+                        <p>Select Module(s)</p>
+                     
+                        <div id="clet" required>
+                          <p>Select client to view modules</p>
+                        </div>
+
+                         <br/>
+
+                        
+
+                    <br/>
+                    <div class="row">
+                    <div class="input-group col mb-3">
+                        <label class="input-group-text">Duration Type</label>
+                        <select class="form-select" id="dur_type" name="subscription_fee_ghs" onchange="changeDur(this)">
+                            <option value="days">Day(s)</option>
+                            <option value="months" selected>Month(s)</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group col mb-3" id="day" style="display:none;">
+                        <label class="input-group-text">Days</label>
+                        <select id="set_duration" name="duration" class="form-select" onchange="changedValue()">
+                            <option value="" selected >Select number of days</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="18">18</option>
+                            <option value="20">20</option> 
+                        </select>
+                    </div>
+
+                    <div class="input-group col mb-3"  id="month">
+                        <label class="input-group-text">Months</label>
+                        <input class="form-control" type="number" id="sub_duration" name="duration" placeholder="Enter months here..." oninput="addRen()">
+                    </div>
+                </div>
+
+
+                <br/>
+                <br/>
+            
+                    <div class="row mt-4">
+                        <div class="form-group col">
+                          <label for="inputCity">Renewing Days</label>
+                          <input style="text-align:center;" type="text" class="form-control" name="renewing_days" id="renewing_days" value="0" readonly>
+                        </div>
+                        <div class="form-group col">
+                            <label for="inputCity">Expired Days</label>
+                            <input style="text-align:center;" type="text" class="form-control"  name="expiring_days" id="expiring_days" value="0" readonly>
+                          </div>
+                       
+                        <div class="form-group col">
+                          <label for="inputZip">Remaining Days</label>
+                          <input style="text-align:center;" type="text" class="form-control"  name="remaining_days" id="remaining_days" value="0" readonly>
+                        </div>
+                      </div>
+                      <br>
+
+
+                      <div id="skit">
+                        <div class="row">
+                            <div class="input-group col mb-3">
+                                <label class="input-group-text">Sub. Fee(USD)</label>
+                                <input class="form-control" type="text" id="special_subscription_fee_usd" name="subscription_fee_usd" placeholder="Enter subscription fee(USD)" onchange="getReal()">
+                            </div>
+                            <div class="input-group col mb-3">
+                                <label class="input-group-text">Sub. Fee(GHS)</label>
+                                <input class="form-control" type="text" id="special_subscription_fee_ghs" name="subscription_fee_ghs" placeholder="Enter subscription fee(GHS)" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                         <div class="form-check mt-5">
+                            <p style="color:red;" id="notice">Note: Check this box if you dont want this subsription to expire</p>
+                            
+                            <input class="form-check-input" type="checkbox" id="non_expiry" name="non_expiry" onchange="showMain(this)">
+                            <label>Non Expiry</label><br/>
+                            
+                        </div>
+
+
+                        <div id="maint" style="display:none;">
+                            <div class="row">
+                                <div class="input-group col mb-3">
+                                    <label class="input-group-text">Main. Fee(USD)</label>
+                                    <input class="form-control" type="text" id="maintenance_fee_usd" name="maintenance_fee_usd" placeholder="Enter maintenance fee(USD)" onchange="getMain()">
+                                </div>
+                                <div class="input-group col mb-3">
+                                    <label class="input-group-text">Main. Fee(GHS)</label>
+                                    <input class="form-control" type="text" id="maintenance_fee_ghs" name="maintenance_fee_ghs" placeholder="Enter maintenance fee(GHS)" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-3 text-center">
+                            <a onclick="window.history.go(-1); return false;"><button type="button" class="btn btn-primary btn-sm mr-3" >Back</button></a>
+
+                            <button id="submit" type="submit" class="btn btn-sm ml-3" style="background-color: #006c40; color: #fff">Subscribe</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

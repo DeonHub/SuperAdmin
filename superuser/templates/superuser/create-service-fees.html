@@ -1,0 +1,51 @@
+{% extends 'superuser/base.html' %}
+{% block content %}
+
+<div class="form-body" style="margin-top:-5%;">
+    <div class="row fee_type">
+        <div class="form-holder">
+            <div class="form-content" >
+                <div class="form-items" >
+                    <h2 class="text-center mb-3" >Set Service Fees</h2>
+                    <form class="" action="" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <label class="input-group-text">Client</label>
+                       <select class="js-data-example-ajax form-select" id="client_size" name="client" required>
+                            <option value="" selected>---------------------</option>
+                            {% for x, y in arr %}
+                             <option value="{{ y }}" required>{{ x }}</option>
+                             {% endfor %} 
+                        </select>
+                        </div>
+
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Set Service Fee(%)</label>
+                            <input type="text" class="form-control" id="service_fee" name="service_fee" placeholder="Enter service fee..." required>
+                        </div>
+
+                        <div class="input-group mt-3">
+                            <label class="input-group-text" for="logo">Service Fee Limit(GHS)</label>
+                            <input type="text" class="form-control" id="limit" name="limit" placeholder="Enter offline payment service fee limit..." required>
+                        </div>
+
+
+                        <div class="mt-3 text-center">
+                            <a onclick="window.history.go(-1); return false;"><button type="button" class="btn btn-primary btn-sm mr-3" >Back</button></a>
+
+                            <button id="submit" type="submit" class="btn btn-sm ml-3" style="background-color: #006c40; color: #fff">Submit</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

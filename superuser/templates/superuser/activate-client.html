@@ -1,0 +1,50 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+{% comment %} <a href="{% url 'superuser:createServiceFees' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Set Service Fee</p></button></a> {% endcomment %}
+<br/>
+<br/>
+<hr/>
+
+
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover" id="service_details">
+    <thead>
+        <tr>
+            <th>Client</th>
+            {% comment %} <th>ID</th> {% endcomment %}
+            <th>Activation Status</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+      {% csrf_token %}
+
+        {% for x, y, z in arr %}
+
+        <tr id="{{ y }}">
+           
+            <td>{{ x }}</td>
+            {% comment %} <td>{{ y }}</td> {% endcomment %}
+
+
+            {% if z == 'False' %}
+            <td>Not Activated</td>
+            <td><a href="{% url 'superuser:ajax_load_onetime' %}" class="activate_member" data-id="{{ y }}"><button class="btn btn-success btn-sm">Activate</button></a></td>
+            {% else %}
+            <td>Activated</td>
+            <td><a href="javascript:void(0)"><button type="button" class="btn btn-success btn-sm" disabled>Activated</button></a></td>
+
+            {% endif %}
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +44,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'superuser',
+    'login',
+    'api',
+    'client',
+    'user',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'widget_tweaks',
+    'django_filters',
+    'cloudinary_storage',
+    'cloudinary',
+    'rest_framework',
+    'drf_yasg',
+    'ajax_datatable',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'superadmin.context_processors.counter',
+                # 'login.context_processors.getDetails',
             ],
         },
     },
@@ -117,7 +140,73 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+MEDIA_URL = '/media/' 
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %B, %Y',
+    # 'DEFAULT_PARSER_CLASSES':[
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser',
+    # ]
+}
+
+# DEFAULT_FILES_STORAGE = "storages.backends.sftpstorage.SFTPStorage"
+
+
+# SFTP_STORAGE_HOST='https://bucket.akwaabasoftware.com/'
+# SFTP_STORAGE_ROOT='/home/akwaabasoftware/bucket.akwaabasoftware.com/media/'
+
+
+# SFTP_STORAGE_PORT=22
+# SFTP_STORAGE_USERNAME=root
+# SFTP_STORAGE_PASSWORD=4PzZI6i81pPyMo47kH
+# SFTP_STORAGE_INTERACTIVE=False
+# SFTP_STORAGE_MEDIA_URL=https://fees.akwaabasoftware.com/media/
+
+# SFTP_STORAGE_HOST = env('SFTP_STORAGE_HOST')
+# SFTP_STORAGE_ROOT = env('SFTP_STORAGE_ROOT')
+
+
+# SFTP_STORAGE_PARAMS = dict(
+#     port = 22,
+#     username = 'root',
+#     password = '4PzZI6i81pPyMo47kH'
+# )
+
+# SFTP_STORAGE_INTERACTIVE = False
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUD_NAME'),
+    'API_KEY': env('API_KEY'),
+    'API_SECRET': env('API_SECRET')
+}
+
+# MEDIA_URL = 'https://bucket.akwaabasoftware.com/media/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND =  env('EMAIL_BACKEND')
+EMAIL_HOST =  env('EMAIL_HOST')
+EMAIL_USE_TLS =  env('EMAIL_USE_TLS')
+EMAIL_PORT =  env('EMAIL_PORT')
+EMAIL_HOST_USER =  env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD =  env('EMAIL_HOST_PASSWORD')

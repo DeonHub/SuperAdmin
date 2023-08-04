@@ -1,0 +1,41 @@
+{% extends 'superuser/base.html' %}
+ 
+{% block content %}
+
+<a href="{% url 'superuser:createEmailDetails' %}"><button class="btn btn-sm fee-type" id="module" style="background-color: #f7941d"><p>Add Email Details</p></button></a>
+<br/>
+<br/>
+<hr/>
+<!-- Button trigger modal -->
+<div class="table-responsive-md">
+
+<table class="table table-striped table-hover" id="email_details">
+    <thead>
+        <tr>
+            <th>Client name</th>
+            <th>Email</th>
+            <th>App Password</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      {% csrf_token %}
+
+        {% for module in details %}
+
+        <tr id="{{ module.id }}">
+           
+            <td>{{ module.client_name }}</td>
+            <td>{{ module.email }}</td>
+            <td>{{ module.password }}</td>
+            <td><a href="{% url 'superuser:editEmailDetails' id=module.id %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a></td>
+            <td><a href="{% url 'superuser:deleteEmailDetails' id=module.id %}" class="email-delete" id="{{ module.id }}"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+        </tr>
+ 
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>   
+{% endblock %}

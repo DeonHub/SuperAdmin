@@ -1,0 +1,19 @@
+{% comment %} <div class="form-check" required>
+
+    {% for x, y in subscription.modules.items %}
+        <input class="form-check-input" type="radio" id="module{{forloop.counter}}" name="" value="{{ y.module_id }}">
+        <label>{{ y.module_name }}</label><br/>   
+    {% endfor %}
+</div>  {% endcomment %}
+
+
+<div class="input-group mb-3">
+
+<select class="js-data-example-ajax form-select" id="client_size" name="modules[]" multiple>
+    {% comment %} <option value="" selected>---------------------</option> {% endcomment %}
+    {% for x, y in subscription.modules.items %}
+     <option value="{{ y.module_id }}" required>{{ y.module_name }}</option>
+     {% endfor %} 
+</select>
+</div>
+
